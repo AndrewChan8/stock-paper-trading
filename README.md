@@ -24,27 +24,10 @@ The project requires these tools:
 ### Repository
 Download the repository with the following command: 
 ```
-git pull https://github.com/AndrewChan8/CS422/tree/main
+git clone https://github.com/AndrewChan8/CS422.git
 ```
 
-### `PostgreSQL` & Database
-To setup your database, download PostgreSQL from :[https://www.postgresql.org/](https://www.postgresql.org/). Provide a password that you will remember for the superuser `postgres`, and ensure that the port is `5432`. Startup `pgAdmin4` once it is downloaded, and click the drop-down arrow next to `Servers` to enter your password and sign-in as postgres. Double-click on the `Databases` tab under `Servers` and click `Create Database`, name the database `MooDengCapital`. Double-click the `MooDengCapital` directory that now appears, and select `Create Script`. The window on your right should display an SQL script with CREATE DATABASE "MooDengCapital" at the top. Delete all of this code, copy & paste the `tables.sql` file that is provided into the submission documents, and click the `Play` or `Execute Script` button that is above this window. The database and its tables have been created.
-
-### `.env`
-
-Create a file called `.env` in the `server` directory. Write to the file the code below
-```
-DB_USER=postgres
-DB_HOST=localhost
-DB_NAME=MooDengCaptial
-DB_PASSWORD=______
-DB_PORT=5432
-API_KEY=______
-```
-* `DB_Password` - should be set to the password provided for postgres superuser
-* `API_KEY` - should be set to API key provided in submission
-
-### `node.js` & `npm` Installation
+## `node.js` & `npm` Installation
 
 Node.js is a javascript runtime environment that is used to help build web applications. NPM is a common 
 package manager used in conjunction with node.js. Both of these can be installed succinctly for MacOS and 
@@ -53,9 +36,76 @@ Windows using the pre-built installer at [https://nodejs.org/en/download/prebuil
 Linux users can install node.js and npm through `nvm` by following and running the commands posted at:
 [https://nodejs.org/en/download/package-manager](https://nodejs.org/en/download/package-manager)
 
-### Final Startup
+## PostgreSQL & Database Setup
 
-To startup the web application on your local host, you will need to download the repo and have both the frontend and backend server running. To run the backend, open a terminal, cd into the `server` directory and execute `node server.js`. To run the frontend, open another terminal, cd into the `client` directory and execute `npm start`.
+Follow these steps to set up PostgreSQL and create the `MooDengCapital` database.
+
+### Step 1: Install PostgreSQL
+
+First, download and install PostgreSQL by visiting the official website:  
+[Download PostgreSQL](https://www.postgresql.org/).
+
+Alternatively, you can install PostgreSQL via a package manager. On Ubuntu, use:
+
+    sudo apt-get update
+    sudo apt-get install postgresql postgresql-contrib
+
+### Step 2: Verify Installation
+After installation, verify that PostgreSQL is installed by checking the version:
+
+    psql --version
+
+This will show you the installed version of PostgreSQL.
+
+### Step 3: Access PostgreSQL
+
+Log into PostgreSQL as the postgres user:
+
+    sudo -u postgres psql
+
+### Step 4: Create the Database
+
+Inside the PostgreSQL prompt, create the MooDengCapital database:
+
+    CREATE DATABASE "MooDengCapital";
+
+### Step 5: Set a Password for the postgres User
+
+You can set a password for the postgres user (the default superuser) to secure your database:
+
+    ALTER ROLE postgres WITH PASSWORD 'tempPassword';
+
+### Step 6: Connect to the MooDengCapital Database
+
+Once the service is running, connect to the MooDengCapital database:
+
+    \c MooDengCapital
+
+### Step 7: Execute SQL Script
+
+To create the necessary tables and structure for your project, execute the SQL script (db.sql) in the PostgreSQL shell:
+
+    \i /path/to/db.sql
+
+Replace /path/to/db.sql with the correct path to your db.sql file (e.g., ./server/db.sql).
+
+This will create the required tables in the MooDengCapital database.
+
+### Step 8: Start PostgreSQL Service (If Not Already Running)
+
+Ensure that the PostgreSQL service is running. You can start it with the following command:
+
+    sudo systemctl start postgresql
+
+
+## Final Startup
+
+To startup the web application on your local host, you will need to download the repo and have both the frontend and backend server running. 
+#### Starting Backend
+open a terminal, cd into the `server` directory and execute `node server.js`. 
+#### Starting Frontend
+open another terminal, cd into the `client` directory and execute `npm start`.
+
 
 
 ## Overview of Pages
