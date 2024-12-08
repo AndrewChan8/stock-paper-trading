@@ -33,7 +33,7 @@ const WatchlistRow = ({ stock, onRemove }) => {
   useEffect(() => {
     const fetchCurrentPrice = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/api/stocks?q=${symbol}`);
+        const response = await axios.get(`http://localhost:5001/api/stocks?q=${symbol}`);
         if (response.data && response.data.data.price) {
           setCurrentPrice(parseFloat(response.data.data.price).toFixed(2)); // Update price with formatted value
         } else {
@@ -67,7 +67,7 @@ const WatchlistRow = ({ stock, onRemove }) => {
       const userId = storageUser.user_id;
 
       // Send request to remove stock from watchlist
-      const response = await axios.post('http://localhost:5000/api/watchlist/removeWatchlist', {
+      const response = await axios.post('http://localhost:5001/api/watchlist/removeWatchlist', {
         user_id: userId,
         stock_symbol: symbol,
       });

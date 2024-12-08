@@ -32,17 +32,17 @@ const addWatchlist = async (req, res) => {
         }
 
         // Check or update stock information in the database
-        let stockRes = await axios.get(`http://localhost:5000/api/stock?q=${stock_ticker}`); // Fetch stock by symbol
+        let stockRes = await axios.get(`http://localhost:5001/api/stock?q=${stock_ticker}`); // Fetch stock by symbol
         if (!stockRes.data.symbol) {
             // Add stock if it doesn't exist
-            await axios.post(`http://localhost:5000/api/stock`, { symbol: stock_ticker, curr_price });
+            await axios.post(`http://localhost:5001/api/stock`, { symbol: stock_ticker, curr_price });
         } else {
             // Update stock if it already exists
-            await axios.put(`http://localhost:5000/api/stock/${stockRes.data.stock_id}`, { curr_price });
+            await axios.put(`http://localhost:5001/api/stock/${stockRes.data.stock_id}`, { curr_price });
         }
 
         // Retrieve stock ID for further processing
-        stockRes = await axios.get(`http://localhost:5000/api/stock?q=${stock_ticker}`);
+        stockRes = await axios.get(`http://localhost:5001/api/stock?q=${stock_ticker}`);
         const stock_id = stockRes.data.stock_id;
 
         console.log(`addWatchlist/stock_id: ${stock_id}`);

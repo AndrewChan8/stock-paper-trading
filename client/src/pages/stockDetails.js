@@ -35,7 +35,7 @@ function StockDetails() {
     const fetchStocks = async () => {
       setLoading(true); // Start the loading indicator
       try {
-        const response = await axios.get(`http://localhost:5000/api/stocks?q=${symbol}`);
+        const response = await axios.get(`http://localhost:5001/api/stocks?q=${symbol}`);
         if (response.data && Object.keys(response.data).length > 0) {
           setStocks(response.data); // Set stocks state with valid data
         } else {

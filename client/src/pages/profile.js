@@ -45,7 +45,7 @@ const Profile = () => {
   useEffect(() => {
     const fetchPortfolioData = async () => {
       try {
-        const response = await fetch('http://localhost:5000/api/getPortfolioStocks', {
+        const response = await fetch('http://localhost:5001/api/getPortfolioStocks', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ user_id: user.user_id }),
@@ -70,7 +70,7 @@ const Profile = () => {
 
     const fetchFinancialData = async (userId) => {
       try {
-        const response = await fetch('http://localhost:5000/api/calcWorth', {
+        const response = await fetch('http://localhost:5001/api/calcWorth', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ user_id: userId }),

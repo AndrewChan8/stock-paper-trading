@@ -42,7 +42,7 @@ const sellStock = async (req, res) => {
         }
 
         // Check if the stock exists in the user's portfolio
-        const portRes = await axios.post(`http://localhost:5000/api/getPortfolioStocks`, { user_id });
+        const portRes = await axios.post(`http://localhost:5001/api/getPortfolioStocks`, { user_id });
         const in_portfolio = portRes.data.some(stock => stock.symbol === symbol);
 
         if (!in_portfolio) {
@@ -50,14 +50,14 @@ const sellStock = async (req, res) => {
         }
 
         // Update the portfolio balance by increasing it with the sale amount
-        const changeBalRes = await axios.put(`http://localhost:5000/api/portfolios/${portfolio_id}`, { ammount: increase });
+        const changeBalRes = await axios.put(`http://localhost:5001/api/portfolios/${portfolio_id}`, { ammount: increase });
 
         if (changeBalRes.status === 400) {
             return res.status(400).json({ error: "Invalid portfolio ID or amount" });
         }
 
         // Record the sale transaction
-        const tradeRes = await axios.post(`http://localhost:5000/api/trades`, {
+        const tradeRes = await axios.post(`http://localhost:5001/api/trades`, {
             portfolio_id,
             symbol,
             trade_type: "SELL",
@@ -66,11 +66,11 @@ const sellStock = async (req, res) => {
         });
 
         // Ensure the stock exists in the stocks table and update its current price
-        const stockRes = await axios.get(`http://localhost:5000/api/stock?q=${symbol}`);
+        const stockRes = await axios.get(`http://localhost:5001/api/stock?q=${symbol}`);
         if (!stockRes.data.symbol) {
             return res.status(400).json({ error: "Stock not in stocks table" });
         } else {
-            await axios.put(`http://localhost:5000/api/stock/${stockRes.data.stock_id}`, { curr_price });
+            await axios.put(`http://localhost:5001/api/stock/${stockRes.data.stock_id}`, { curr_price });
         }
 
         // Return success response

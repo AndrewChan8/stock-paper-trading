@@ -21,6 +21,9 @@ The project requires these tools:
 * Node.js
 * Npm (Node Package Manager)
 
+### Mac
+Installation Instructions for mac can be found in the submission documents.
+
 ### Repository
 Download the repository with the following command: 
 ```

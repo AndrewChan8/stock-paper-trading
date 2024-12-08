@@ -37,7 +37,7 @@ const StockRow = ({ stock }) => {
   useEffect(() => {
     const fetchCurrentPrice = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/api/stocks?q=${symbol}`);
+        const response = await axios.get(`http://localhost:5001/api/stocks?q=${symbol}`);
         if (response.data && response.data.data.price) {
           setCurrentPrice(parseFloat(response.data.data.price)); // Update current price
           setCompanyName(response.data.data.companyName); // Update company name
@@ -73,7 +73,7 @@ const StockRow = ({ stock }) => {
         return;
       }
 
-      const response = await axios.post('http://localhost:5000/api/sellStock', {
+      const response = await axios.post('http://localhost:5001/api/sellStock', {
         user_id: userId,
         symbol: symbol,
         curr_price: currentPrice,

@@ -57,7 +57,7 @@ describe('calcWorth Controller', () => {
 
     await calcWorth(req, res);
 
-    expect(axios.get).toHaveBeenCalledWith('http://localhost:5000/api/stocks?q=AAPL');
+    expect(axios.get).toHaveBeenCalledWith('http://localhost:5001/api/stocks?q=AAPL');
     expect(res.status).toHaveBeenCalledWith(404);
     expect(res.json).toHaveBeenCalledWith({ error: "Stock not found on Alpha Vantage Platform" });
   });

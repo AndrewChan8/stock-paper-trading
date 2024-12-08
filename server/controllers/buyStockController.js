@@ -48,13 +48,13 @@ const buyStock = async (req, res) => {
     }
 
     // Deduct the total cost from the user's portfolio balance
-    const changeBalRes = await axios.put(`http://localhost:5000/api/portfolios/${portfolio_id}`, { ammount: -totalCost });
+    const changeBalRes = await axios.put(`http://localhost:5001/api/portfolios/${portfolio_id}`, { ammount: -totalCost });
     if (changeBalRes.status === 400) {
       return res.status(400).json({ error: "Invalid portfolio ID or amount" });
     }
 
     // Record the buy transaction
-    await axios.post(`http://localhost:5000/api/trades`, {
+    await axios.post(`http://localhost:5001/api/trades`, {
       portfolio_id,
       symbol,
       trade_type: "BUY",
@@ -63,13 +63,13 @@ const buyStock = async (req, res) => {
     });
 
     // Ensure the stock exists in the database or update its current price
-    const stockRes = await axios.get(`http://localhost:5000/api/stock?q=${symbol}`);
+    const stockRes = await axios.get(`http://localhost:5001/api/stock?q=${symbol}`);
     if (!stockRes.data.symbol) {
       // Add stock if it doesn't exist
-      await axios.post(`http://localhost:5000/api/stock`, { symbol, curr_price });
+      await axios.post(`http://localhost:5001/api/stock`, { symbol, curr_price });
     } else {
       // Update the stock's current price
-      await axios.put(`http://localhost:5000/api/stock/${stockRes.data.stock_id}`, { curr_price });
+      await axios.put(`http://localhost:5001/api/stock/${stockRes.data.stock_id}`, { curr_price });
     }
 
     // Respond with success

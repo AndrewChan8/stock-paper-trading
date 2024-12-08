@@ -39,7 +39,7 @@ const signUp = async (req, res) => {
         }
 
         // Create a new user by sending data to the user creation API
-        await axios.post(`http://localhost:5000/api/users`, {
+        await axios.post(`http://localhost:5001/api/users`, {
             username: username,
             email: email,
             password: password,
@@ -50,7 +50,7 @@ const signUp = async (req, res) => {
         const user_id = userRes.rows[0].user_id;
 
         // Initialize a portfolio for the user by sending data to the portfolio creation API
-        await axios.post(`http://localhost:5000/api/portfolios`, { user_id: user_id });
+        await axios.post(`http://localhost:5001/api/portfolios`, { user_id: user_id });
 
         // Send success response with user details
         res.status(200).json({

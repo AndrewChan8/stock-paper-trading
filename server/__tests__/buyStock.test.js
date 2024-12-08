@@ -79,7 +79,7 @@ describe('buyStock Controller', () => {
     axios.put.mockResolvedValueOnce({ status: 400 });
 
     await buyStock(req, res);
-    expect(axios.put).toHaveBeenCalledWith('http://localhost:5000/api/portfolios/1', { ammount: -300 });
+    expect(axios.put).toHaveBeenCalledWith('http://localhost:5001/api/portfolios/1', { ammount: -300 });
     expect(res.status).toHaveBeenCalledWith(400);
     expect(res.json).toHaveBeenCalledWith({ error: "Invalid portfolio_id or ammount" });
   });
@@ -96,8 +96,8 @@ describe('buyStock Controller', () => {
 
     await buyStock(req, res);
 
-    expect(axios.put).toHaveBeenCalledWith('http://localhost:5000/api/portfolios/1', { ammount: -300 });
-    expect(axios.post).toHaveBeenCalledWith('http://localhost:5000/api/trades', {
+    expect(axios.put).toHaveBeenCalledWith('http://localhost:5001/api/portfolios/1', { ammount: -300 });
+    expect(axios.post).toHaveBeenCalledWith('http://localhost:5001/api/trades', {
       portfolio_id: 1,
       symbol: 'AAPL',
       trade_type: 'BUY',

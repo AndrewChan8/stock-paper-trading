@@ -35,7 +35,7 @@ import signInRoutes from './routes/signInRoutes.js';
 import signUpRoutes from './routes/signUpRoutes.js';
 
 const app = express(); // Create an instance of an Express application
-const port = process.env.PORT || 5000; // Set the server's port, defaulting to 5000
+const port = process.env.PORT || 5001; // Set the server's port, defaulting to 5001
 
 // Middleware configurations
 app.use(cors({ origin: 'http://localhost:3000' })); // Enable CORS for the React frontend

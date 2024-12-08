@@ -54,7 +54,7 @@ const StockCard = ({ stocks }) => {
    */
   const handleAddWatchlist = async () => {
     try {
-      await axios.post('http://localhost:5000/api/watchlist/addWatchlist', {
+      await axios.post('http://localhost:5001/api/watchlist/addWatchlist', {
         watchlist_name: user.user_id,
         user_id: user.user_id,
         stock_ticker: symbol,
@@ -76,7 +76,7 @@ const StockCard = ({ stocks }) => {
       const storageUser = JSON.parse(localStorage.getItem('user')); // Retrieve the current user from local storage
       const storageId = storageUser["user_id"];
 
-      const response = await axios.post('http://localhost:5000/api/buyStock', {
+      const response = await axios.post('http://localhost:5001/api/buyStock', {
         user_id: storageId,
         symbol: symbol,
         curr_price: price,

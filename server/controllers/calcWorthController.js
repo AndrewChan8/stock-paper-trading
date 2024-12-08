@@ -39,7 +39,7 @@ const calcWorth = async (req, res) => {
     const liquidMoney = parseFloat(portQuery.rows[0].balance || 0);
 
     // Fetch the user's portfolio stocks
-    const portRes = await axios.post("http://localhost:5000/api/getPortfolioStocks", { user_id });
+    const portRes = await axios.post("http://localhost:5001/api/getPortfolioStocks", { user_id });
     const portfolio = portRes.data || [];
 
     // Calculate asset money (total stock value)
@@ -50,7 +50,7 @@ const calcWorth = async (req, res) => {
 
       try {
         // Fetch the current price of the stock
-        const result = await axios.get(`http://localhost:5000/api/stocks?q=${symbol}`);
+        const result = await axios.get(`http://localhost:5001/api/stocks?q=${symbol}`);
         if (result.data && result.data.data && result.data.data.price) {
           const currentPrice = parseFloat(result.data.data.price);
           assetMoney += currentPrice * quantity;

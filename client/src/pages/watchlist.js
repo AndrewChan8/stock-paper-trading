@@ -33,7 +33,7 @@ const Watchlist = () => {
    */
   const fetchWatchlist = async () => {
     try {
-      const response = await fetch(`http://localhost:5000/api/watchlist/${user.user_id}/watchlist`);
+      const response = await fetch(`http://localhost:5001/api/watchlist/${user.user_id}/watchlist`);
       if (response.ok) {
         const data = await response.json();
 
@@ -43,7 +43,7 @@ const Watchlist = () => {
         // Fetch current prices for each stock symbol
         const pricePromises = symbols.map(async (symbol) => {
           try {
-            const priceResponse = await axios.get(`http://localhost:5000/api/stocks?q=${symbol}`);
+            const priceResponse = await axios.get(`http://localhost:5001/api/stocks?q=${symbol}`);
             return {
               symbol,
               companyName: priceResponse.data?.data?.companyName,

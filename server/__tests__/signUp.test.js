@@ -77,12 +77,12 @@ describe('signUp', () => {
         await signUp(req, res);
 
         expect(pool.query).toHaveBeenCalledWith('SELECT * FROM users WHERE email=$1', [req.body.email]);
-        expect(axios.post).toHaveBeenCalledWith('http://localhost:5000/api/users', {
+        expect(axios.post).toHaveBeenCalledWith('http://localhost:5001/api/users', {
             username: req.body.username,
             email: req.body.email,
             password: req.body.password,
         });
-        expect(axios.post).toHaveBeenCalledWith('http://localhost:5000/api/portfolios', { user_id: 123 });
+        expect(axios.post).toHaveBeenCalledWith('http://localhost:5001/api/portfolios', { user_id: 123 });
         expect(res.status).toHaveBeenCalledWith(200);
         expect(res.json).toHaveBeenCalledWith({
             message: 'Successfully signed in',
