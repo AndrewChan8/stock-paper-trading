@@ -1,138 +1,171 @@
-# CS422
+# 💹 MooDengCapital – Paper Trading Platform
 
-## Abstract
+**Authors & Developers**: Andrew Chan, Jacob Kolster, Miles Anderson, Liam Bouffard  
+**Team**: MooDeng  
+**Last Updated**: December 2, 2024
 
-MooDengCapital is a papertrading service that aims to make pragmatic and risk-free education accessible to all. Through becoming 
-a registered trader, users are provided a clean-slate balance of $10,000 to build a financial portfolio of real stocks. Additionally, a watchlist page is available to each user, where they can monintor and group certain stocks of interest. Through buying and selling stocks with real-time prices, users can analyze trends and learn about the inner workings of the stokc market all while developing a simulated portfolio. 
+---
 
-## Authors
+## 📈 Overview
 
-Miles Anderson, Liam Bouffard, Andrew Chan, Jacob Kolster </br>
-Team: MooDeng </br>
-Class: CS 422, Fall 2024 </br>
-Last Modified: 12/2/2024
+**MooDengCapital** is a simulated paper trading platform designed to provide a risk-free, hands-on introduction to investing. Each registered user begins with a virtual $10,000 balance and can trade real-time priced stocks to build a portfolio, monitor trends, and learn the dynamics of the stock market. Users can also create a personalized watchlist to track stocks of interest without executing trades.
 
-## Installation
+Built with a modern web stack, MooDengCapital features:
 
-### Requirements
-The project requires these tools:
-* PostgreSQL
-* .env file
-* Node.js
-* Npm (Node Package Manager)
+- A **React frontend**
+- A **Node.js + Express backend**
+- A **PostgreSQL database**
 
-### Mac
-Installation Instructions for mac can be found in the submission documents.
+---
 
-### Repository
-Download the repository with the following command: 
+## 🛠️ Installation Guide
+
+### 📦 Requirements
+
+- Node.js and npm
+- PostgreSQL
+- `.env` file with configuration variables
+
+---
+
+## 💻 Cloning the Repository
+
+```bash
+git clone https://github.com/AndrewChan8/stock-paper-trading.git
 ```
-git clone https://github.com/AndrewChan8/CS422.git
+
+---
+
+## ⚙️ Node.js & npm Installation
+
+Install both using the [official prebuilt installer](https://nodejs.org/en/download/prebuilt-installer).
+
+Linux users can install via `nvm`:
+
+```bash
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
+nvm install node
 ```
 
-## `node.js` & `npm` Installation
+---
 
-Node.js is a javascript runtime environment that is used to help build web applications. NPM is a common 
-package manager used in conjunction with node.js. Both of these can be installed succinctly for MacOS and 
-Windows using the pre-built installer at [https://nodejs.org/en/download/prebuilt-installer](https://nodejs.org/en/download/prebuilt-installer).
+## 🗄️ PostgreSQL Setup
 
-Linux users can install node.js and npm through `nvm` by following and running the commands posted at:
-[https://nodejs.org/en/download/package-manager](https://nodejs.org/en/download/package-manager)
+### 1. Install PostgreSQL
 
-## PostgreSQL & Database Setup
+- [Download from official site](https://www.postgresql.org/)
+- Or on Ubuntu:
+  ```bash
+  sudo apt-get update
+  sudo apt-get install postgresql postgresql-contrib
+  ```
 
-Follow these steps to set up PostgreSQL and create the `MooDengCapital` database.
+### 2. Verify Installation
 
-### Step 1: Install PostgreSQL
+```bash
+psql --version
+```
 
-First, download and install PostgreSQL by visiting the official website:  
-[Download PostgreSQL](https://www.postgresql.org/).
+### 3. Access psql
 
-Alternatively, you can install PostgreSQL via a package manager. On Ubuntu, use:
+```bash
+sudo -u postgres psql
+```
 
-    sudo apt-get update
-    sudo apt-get install postgresql postgresql-contrib
+### 4. Create the Database
 
-### Step 2: Verify Installation
-After installation, verify that PostgreSQL is installed by checking the version:
+```sql
+CREATE DATABASE "MooDengCapital";
+```
 
-    psql --version
+### 5. Set postgres Password (Optional)
 
-This will show you the installed version of PostgreSQL.
+```sql
+ALTER ROLE postgres WITH PASSWORD 'tempPassword';
+```
 
-### Step 3: Access PostgreSQL
+### 6. Connect to the Database
 
-Log into PostgreSQL as the postgres user:
+```sql
+\c MooDengCapital
+```
 
-    sudo -u postgres psql
+### 7. Execute SQL Schema
 
-### Step 4: Create the Database
+```sql
+\i /path/to/db.sql
+```
 
-Inside the PostgreSQL prompt, create the MooDengCapital database:
+Replace `/path/to/db.sql` with the actual path (e.g., `./server/db.sql`).
 
-    CREATE DATABASE "MooDengCapital";
+### 8. Start PostgreSQL Service
 
-### Step 5: Set a Password for the postgres User
+```bash
+sudo systemctl start postgresql
+```
 
-You can set a password for the postgres user (the default superuser) to secure your database:
+---
 
-    ALTER ROLE postgres WITH PASSWORD 'tempPassword';
+## 🚀 Starting the Application
 
-### Step 6: Connect to the MooDengCapital Database
+### 🧠 Backend
 
-Once the service is running, connect to the MooDengCapital database:
+```bash
+cd server
+node server.js
+```
 
-    \c MooDengCapital
+### 🎨 Frontend
 
-### Step 7: Execute SQL Script
+```bash
+cd client
+npm install
+npm start
+```
 
-To create the necessary tables and structure for your project, execute the SQL script (db.sql) in the PostgreSQL shell:
+Visit `http://localhost:3000` in your browser to start using MooDengCapital.
 
-    \i /path/to/db.sql
+---
 
-Replace /path/to/db.sql with the correct path to your db.sql file (e.g., ./server/db.sql).
+## 🌐 Pages Overview
 
-This will create the required tables in the MooDengCapital database.
+### 🔑 Sign-Up / Sign-In
 
-### Step 8: Start PostgreSQL Service (If Not Already Running)
+- Register a trader account using username, email, and password.
+- Login to access portfolio, watchlist, and trading features.
 
-Ensure that the PostgreSQL service is running. You can start it with the following command:
+### 🏠 Home Page
 
-    sudo systemctl start postgresql
+- Search for real stocks by ticker.
+- Buy shares (if sufficient funds) or add stocks to your watchlist.
+- Default display: Google (GOOG).
 
+### 👀 Watchlist
 
-## Final Startup
+- Monitor selected stocks without purchasing them.
+- Useful for observing trends and planning future trades.
 
-To startup the web application on your local host, you will need to download the repo and have both the frontend and backend server running. 
-#### Starting Backend
-open a terminal, cd into the `server` directory and execute `node server.js`. 
-#### Starting Frontend
-open another terminal, cd into the `client` directory and execute `npm start`.
+### 👤 Profile Page
 
+- View portfolio holdings and account stats:
+  - Liquid cash
+  - Asset value
+  - Total net worth
 
+---
 
-## Overview of Pages
+## 📂 Additional Documentation
 
-### Sign-Up/Sign-In
+Detailed documentation for backend and frontend functionality is available in:
 
-Sign-Up used to register a username, email, and password with a new trader account, automatically signs in on completion. Sign-in used to connect with already registered trader account. This is necessary to access functionality such as buying/selling stock or adding a stock to the watchlist
+- `server/README.md`
+- `client/README.md`
 
-### Home Page
+---
 
-Used to search stocks by their ticker. Given a successful search a user has an option to add any number of shares that don't exceed the
-balance of their portfolio, or add the stock to their watchlist. By default Google (GOOG) is shown.
+## 📬 Contact & Contributions
 
-### Watchlists Page
+Feel free to fork the repo, report issues, or open pull requests. We welcome contributions to expand features or improve usability.
 
-Users can add stocks of interest to their watchlist page. Instead of buying stocks, here they can monitor them to keep track of trends
-within the market. 
-
-### Profile Page
-
-The center for a trader's financial overview! Displays all shares within a user's portfolio, as well as other vital information such as
-liquid money, asset money, and net worth.
-
-
-## Further Reading
-
-Dedicated READMEs are provided for the backend and frontend in the `server` and `client` directories respectively.
+📧 [andrewsushi.c8@gmail.com]  
+💼 [linkedin.com/in/andrew-chan8]

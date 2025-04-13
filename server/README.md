@@ -1,105 +1,164 @@
-# The Backend
+# 🧠 MooDengCapital – Backend Server
 
-## Available Scripts
+This is the backend component of the **MooDengCapital** paper trading platform. It provides a RESTful API layer between the frontend (React) and the PostgreSQL database, handling routing, logic, user authentication, and real-time interaction with financial data.
+
+---
+
+## 🚀 Available Scripts
 
 ### `node server.js`
 
-Starts up the backend server when executed in the `server` directory
+Starts the backend server in the `server/` directory.
 
-### `npm install _____`
+### `npm install <package>`
 
-Installs npm dependencies with title "_____." The dependencies used for this backend were installed using
-this format and are listed below:
-* axios
-* bcrypt
-* bcryptjs
-* cookie-parser
-* cors
-* dotenv
-* express
-* jade
-* morgan
-* pg
+Installs required npm dependencies. The backend uses the following packages:
 
-## Backend Architecture
+- `axios`
+- `bcrypt`
+- `bcryptjs`
+- `cookie-parser`
+- `cors`
+- `dotenv`
+- `express`
+- `jade`
+- `morgan`
+- `pg`
 
-The backend server consists of API routes connecting the front-end react app to the database.
-These API calls can be seperated into three main categories:
+---
 
-1. Database Table CRUD API
-2. Vanguard Stock API
-3. User Functionality API
+## 🧱 Backend Architecture
 
-### Database Table CRUD API
+The backend follows a **modular MVC-style structure**, separating routes, controllers, and database logic. It exposes API endpoints grouped into three categories:
 
-Basic CRUD operations were provided with each table in the database. These API methods are contained within
-a controller file with the same name of the database table, and help abstract higher user functionality
-such as buying a stock or signing up as a trader. For instance, the portfolio table's API methods are found 
-within `portfolioController.js` of the controller directory, and consist of createPortfolio, deletePortfolio,
-and changeBalance. Thus Database Table CRUD API are provided for the tables:
+1. **Core Database CRUD APIs**
+2. **External Stock Price API**
+3. **User Functional APIs**
 
-* stocks (within controllers/stockController.js)
-* users
-* portfolios
-* trades (within controllers/transactionsController.js)
-* watchlists
+---
 
+### 📁 1. Core Database CRUD APIs
 
-### Vanguard Stock API
+Each database table has corresponding controller methods for creating, reading, updating, and deleting records. These controller files are located in the `/controllers` directory and abstract functionality used across multiple API routes.
 
-Provides functionality for interacting with a 3rd party service that stores and retrieves the real-time prices
-of stocks in the stock market.
+| Table        | Controller File                   | Example Methods                             |
+|--------------|-----------------------------------|----------------------------------------------|
+| `stocks`     | `controllers/stockController.js`  | `addStock`, `getStock`, `updatePrice`       |
+| `users`      | `controllers/userController.js`   | `createUser`, `deleteUser`, `getUserById`   |
+| `portfolios` | `controllers/portfolioController.js` | `createPortfolio`, `changeBalance`       |
+| `trades`     | `controllers/transactionsController.js` | `addTrade`, `getTradeHistory`         |
+| `watchlists` | `controllers/watchlistController.js` | `addToWatchlist`, `removeFromWatchlist` |
 
-### User Functionality API
+---
 
-Higher level user-functionality such as buying a stock or signing up as a trader are accessed through these API
-methods. These methods have their separate routes and controllers and typically call other Database Table CRUD 
-APIs. For instance, given the scenario where a user signs up successfully, an HTTP POST request will be sent to
-`/api/signUp` and given a valid HTTP body, one post request will be sent to `/api/users` and one POST request 
-will be sent to `/api/portfolios` to create a user and portfolio within the database.
+### 🌐 2. External Stock Price API (Vanguard)
 
-The methods associated with this type of API are:
-- buyStock
-- sellStock
-- calcWorth  (Calculate user's net worth)
-- signIn
-- signUp
-- getPortfolioStocks (within controllers/viewPortfolioController.js)
+This service fetches real-time stock prices from a third-party data provider. These prices are used across trading and portfolio calculations. Stock updates are managed via endpoints that interact with the Vanguard API.
 
+---
 
-## The Database
+### 👤 3. User Functional APIs
 
-### Stock Table
+These high-level APIs drive key application functionality. They often interact with multiple database tables in a single request and encapsulate business logic related to trading, account setup, and portfolio analysis.
 
-A set of existing unique stocks within all portfolios and watchlists of registered traders. Each record
-contains of a stock_id for identification, a symbol representing the stock's ticker, curr_price representing 
-the most recently known price of the stock, as well as a timestamp of when the record was created.
+#### Example Routes & Logic
 
-### Users Table
+| Route                | Description                                                    |
+|---------------------|----------------------------------------------------------------|
+| `POST /api/signUp`  | Registers a new user and initializes a portfolio               |
+| `POST /api/signIn`  | Authenticates and logs in a user                               |
+| `POST /api/buyStock`| Executes a stock purchase; updates portfolio & trade history   |
+| `POST /api/sellStock`| Sells shares from portfolio and updates balance                |
+| `GET /api/calcWorth`| Calculates a user's total net worth using real-time prices     |
+| `GET /api/portfolio`| Retrieves all stocks currently held in the user's portfolio    |
 
-Stores each registered trader and their vital information. Each record consists of a user_id for identification,
-a username, a unique email, a password, and a timestamp of when the record was created. The password is encrypted
-for security purposes
+These methods typically chain together multiple controller calls and enforce data validation and authentication.
 
-### Portfolios Table
+---
 
-Stores the portfolios of all registered traders. These records contain a portfolio_id for identification, a 
-user_id to reference the user associated with the portfolio, a balance for the ammount of uninvested money within
-the account, as well as a timestamp of when the record was created.
+## 🗃️ Database Schema Overview
 
-### Trades Table
+The backend connects to a PostgreSQL instance that stores all platform data. Below is a summary of each major table:
 
-Stores the trade history of all registered traders. Each record consists of a trade_id for identification, a
-portfolio_id to reference the portfolio associated with the trade, symbol representing the stock involved in 
-the trade, trade_type which is set to either 'BUY' or 'SELL', the quantity of shares involved in the trade, the
-price_per_share of the stock, as well as a timestamp for when the trade was enacted. Notably, the trades table is
-traversed to calculate the current shares within a portfolio. The combination of the real-time prices of these 
-shares alongside the balance left in the portfolio calculates a trader's net worth.
+---
 
-### Watchlists Table
+### 📊 `stocks`
 
-Stores all stocks within the watchlists of all registered traders. These records contain a watchlist_id, a name
-representing the symbol of the stock, a user_id to reference the user associated, a stock_id to reference the stock
-associated, and a timestamp of when the stock was added to the user's watchlist. Both name and user_id are used to
-identify a specific stock within a specific user's watchlist.
+Stores all unique stocks referenced by portfolios or watchlists.
+
+| Column       | Description                                |
+|--------------|--------------------------------------------|
+| `stock_id`   | Primary key (int)                          |
+| `symbol`     | Ticker symbol (e.g., AAPL)                 |
+| `curr_price` | Latest known price                         |
+| `created_at` | Timestamp of stock insertion               |
+
+---
+
+### 👤 `users`
+
+Stores all registered traders with secure credentials.
+
+| Column     | Description                                 |
+|------------|---------------------------------------------|
+| `user_id`  | Primary key                                 |
+| `username` | Display name                                |
+| `email`    | Unique identifier for login                 |
+| `password` | Hashed password using bcrypt                |
+| `created_at` | Timestamp of user creation                |
+
+---
+
+### 💼 `portfolios`
+
+Represents a trader’s financial portfolio.
+
+| Column        | Description                                     |
+|---------------|-------------------------------------------------|
+| `portfolio_id`| Primary key                                     |
+| `user_id`     | Foreign key referencing `users`                 |
+| `balance`     | Liquid (uninvested) funds in USD                |
+| `created_at`  | Timestamp of portfolio creation                 |
+
+---
+
+### 🔁 `trades`
+
+Tracks a trader's complete transaction history.
+
+| Column           | Description                                          |
+|------------------|------------------------------------------------------|
+| `trade_id`       | Primary key                                          |
+| `portfolio_id`   | Foreign key referencing `portfolios`                |
+| `symbol`         | Stock symbol                                         |
+| `trade_type`     | `'BUY'` or `'SELL'`                                  |
+| `quantity`       | Number of shares involved                            |
+| `price_per_share`| Execution price at the time of trade                |
+| `created_at`     | Timestamp of trade                                   |
+
+> This table is used to reconstruct portfolio holdings and compute total asset value.
+
+---
+
+### 👁️ `watchlists`
+
+Stores user-specific stock watchlists.
+
+| Column        | Description                                 |
+|---------------|---------------------------------------------|
+| `watchlist_id`| Primary key                                 |
+| `name`        | Stock ticker symbol                         |
+| `user_id`     | Foreign key referencing `users`             |
+| `stock_id`    | Foreign key referencing `stocks`            |
+| `created_at`  | Timestamp of when the stock was added       |
+
+A combination of `name` and `user_id` ensures a user doesn’t duplicate a stock in their watchlist.
+
+---
+
+## ✅ Summary
+
+The backend of MooDengCapital provides a structured and extensible API architecture to support a seamless and educational paper trading experience. It is modular, secure, and designed with scalability in mind.
+
+For more details on route structures or extending functionality, explore the `/routes` and `/controllers` directories or contact the team.
 

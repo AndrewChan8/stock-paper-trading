@@ -1,70 +1,114 @@
-# Getting Started with Create React App
+# 🎨 MooDengCapital – Frontend Client
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This is the **React-based frontend** for MooDengCapital, a full-stack paper trading platform. It allows users to register, sign in, manage their watchlists and portfolios, and simulate trades in real-time using mock balances and live stock prices.
 
-## Available Scripts
+---
 
-In the project directory, you can run:
+## 🚀 Getting Started
+
+### 📦 Prerequisites
+
+Ensure the following are installed on your machine:
+
+- Node.js (v16+ recommended)
+- npm (comes with Node.js)
+
+---
+
+## 🛠️ Installation & Startup
+
+1. **Navigate to the frontend directory**:
+
+   ```bash
+   cd client
+   ```
+
+2. **Install dependencies**:
+
+   ```bash
+   npm install
+   ```
+
+3. **Run the development server**:
+
+   ```bash
+   npm start
+   ```
+
+4. Open your browser and visit:
+
+   ```
+   http://localhost:3000
+   ```
+
+   The app will automatically reload on code changes. Console will show build progress and any linting issues.
+
+---
+
+## 📁 Project Structure (Simplified)
+
+```plaintext
+client/
+├── public/              # Static files
+├── src/
+│   ├── components/      # Reusable React components
+│   ├── pages/           # Top-level routes/views (Home, Profile, Watchlist)
+│   ├── services/        # API calls (e.g., Axios helpers)
+│   ├── App.js           # Main component with route config
+│   ├── index.js         # Entry point for React
+├── .env                 # Environment variables (e.g., API base URL)
+```
+
+---
+
+## 🧪 Available Scripts
 
 ### `npm start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
-
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Runs the app in development mode.
 
 ### `npm run build`
+Creates an optimized production build in the `build/` folder.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### `npm test`
+Launches the test runner (if tests are configured).
 
 ### `npm run eject`
+**Caution**: Permanently exposes build config (Webpack, Babel, etc.) for full control.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+> Most users will never need to run `eject`.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+---
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## 📚 Learn More
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app), so CRA resources also apply.
 
-## Learn More
+- [React Docs](https://reactjs.org/)
+- [React Router](https://reactrouter.com/)
+- [Axios for API calls](https://axios-http.com/)
+- [Create React App Configuration](https://create-react-app.dev/docs/getting-started/)
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+---
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## 💡 Tips
 
-### Code Splitting
+- For API interaction, ensure the backend server is running at the expected address (`localhost:5000` by default or as configured in `.env`).
+- Customize environment variables in `.env` as needed (e.g., API base URLs, API keys).
+- Frontend and backend must be launched in parallel for full functionality.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+---
 
-### Analyzing the Bundle Size
+## 🧼 Troubleshooting
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+- If you see `npm run build` fails to minify:
+  Follow [CRA troubleshooting guide](https://create-react-app.dev/docs/troubleshooting#npm-run-build-fails-to-minify)
+- If API requests fail:
+  - Confirm backend is running
+  - Check `.env` for correct `REACT_APP_API_URL`
+  - Look for CORS errors in the browser console
 
-### Making a Progressive Web App
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+## 📬 Contact
 
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Feel free to contribute, suggest improvements, or report bugs. This frontend is designed to work seamlessly with the MooDengCapital backend (`/server` directory).
