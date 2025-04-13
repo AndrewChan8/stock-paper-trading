@@ -2,7 +2,10 @@
 
 **Authors & Developers**: Andrew Chan, Jacob Kolster, Miles Anderson, Liam Bouffard  
 **Team**: MooDeng  
-**Last Updated**: December 2, 2024
+**Languages:** JavaScript/React (Frontend), Node.js/Express (Backend), SQL (PostgreSQL)  
+**Project Type:** Full-Stack Web Application / Financial Simulation / Paper Trading  
+**Last Updated (Code):** December 2, 2024  
+**Last Updated (Documentation):** April 2025
 
 ---
 
@@ -17,6 +20,22 @@ Built with a modern web stack, MooDengCapital features:
 - A **PostgreSQL database**
 
 ---
+
+## 🏷️ Badges
+
+![React](https://img.shields.io/badge/Frontend-React-61DAFB?logo=react)
+![Node.js](https://img.shields.io/badge/Backend-Node.js-green?logo=node.js)
+![PostgreSQL](https://img.shields.io/badge/Database-PostgreSQL-336791?logo=postgresql)
+![JavaScript](https://img.shields.io/badge/Language-JavaScript-F7DF1E?logo=javascript)
+![Express](https://img.shields.io/badge/API-Express-black?logo=express)
+![Axios](https://img.shields.io/badge/HTTP-Axios-5A29E4?logo=axios)
+![bcrypt](https://img.shields.io/badge/Security-bcrypt-orange)
+![dotenv](https://img.shields.io/badge/Config-dotenv-lightgrey)
+![CORS](https://img.shields.io/badge/CORS-enabled-blue)
+![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
+![Platform](https://img.shields.io/badge/Platform-Linux%20%7C%20Mac%20%7C%20Windows-lightgrey)
+![Status](https://img.shields.io/badge/Status-Stable-brightgreen)
+
 
 ## 🛠️ Installation Guide
 
